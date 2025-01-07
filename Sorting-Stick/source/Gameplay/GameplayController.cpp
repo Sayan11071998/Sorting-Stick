@@ -4,24 +4,11 @@
 
 namespace Gameplay
 {
+	void GameplayController::destroy() { delete(gameplay_view); }
 
+	GameplayController::GameplayController() { gameplay_view = new GameplayView(); }
 
-
-
-	void GameplayController::destroy()
-	{
-		delete(gameplay_view);
-	}
-
-	GameplayController::GameplayController()
-	{
-		gameplay_view = new GameplayView();
-	}
-
-	GameplayController::~GameplayController()
-	{
-		destroy();
-	}
+	GameplayController::~GameplayController() { destroy(); }
 
 	void GameplayController::initialize()
 	{
@@ -29,18 +16,9 @@ namespace Gameplay
 		reset();
 	}
 
-	void GameplayController::update()
-	{
-		gameplay_view->update();
-	}
+	void GameplayController::update() { gameplay_view->update(); }
 
-	void GameplayController::render()
-	{
-		gameplay_view->render();
-	}
+	void GameplayController::render() { gameplay_view->render(); }
 
-	void GameplayController::reset()
-	{
-	}
-
+	void GameplayController::reset() {}
 }

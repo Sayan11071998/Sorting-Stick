@@ -9,7 +9,6 @@ namespace UI
 		class SplashScreenUIController : public Interface::IUIController
 		{
 		private:
-			// Constants:
 			const float logo_animation_duration = 2.0f;
 			const float logo_width = 600.f;
 			const float logo_height = 134.f;

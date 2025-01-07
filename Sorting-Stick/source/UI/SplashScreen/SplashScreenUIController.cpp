@@ -15,30 +15,15 @@ namespace UI
         using namespace UIElement;
         using namespace Sound;
 
-        SplashScreenUIController::SplashScreenUIController()
-        {
-            outscal_logo_view = new AnimatedImageView();
-        }
+        SplashScreenUIController::SplashScreenUIController() { outscal_logo_view = new AnimatedImageView(); }
 
-        SplashScreenUIController::~SplashScreenUIController()
-        {
-            delete (outscal_logo_view);
-        }
+        SplashScreenUIController::~SplashScreenUIController() { delete (outscal_logo_view); }
 
-        void SplashScreenUIController::initialize()
-        {
-            initializeOutscalLogo();
-        }
+        void SplashScreenUIController::initialize() { initializeOutscalLogo(); }
 
-        void SplashScreenUIController::update()
-        {
-            outscal_logo_view->update();
-        }
+        void SplashScreenUIController::update() { outscal_logo_view->update(); }
 
-        void SplashScreenUIController::render()
-        {
-            outscal_logo_view->render();
-        }
+        void SplashScreenUIController::render() { outscal_logo_view->render(); }
 
         void SplashScreenUIController::initializeOutscalLogo()
         {
@@ -51,11 +36,7 @@ namespace UI
             outscal_logo_view->playAnimation(AnimationType::FADE_OUT, logo_animation_duration, std::bind(&SplashScreenUIController::fadeOutAnimationCallback, this));
         }
 
-        void SplashScreenUIController::fadeOutAnimationCallback()
-        {
-            
-            GameService::setGameState(GameState::MAIN_MENU);
-        }
+        void SplashScreenUIController::fadeOutAnimationCallback() { GameService::setGameState(GameState::MAIN_MENU); }
 
         sf::Vector2f SplashScreenUIController::getLogoPosition()
         {

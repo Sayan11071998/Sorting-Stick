@@ -23,10 +23,7 @@ namespace UI
             createTexts();
         }
 
-        GameplayUIController::~GameplayUIController()
-        {
-            destroy();
-        }
+        GameplayUIController::~GameplayUIController() { destroy(); }
 
         void GameplayUIController::initialize()
         {
@@ -34,10 +31,7 @@ namespace UI
             initializeTexts();
         }
 
-        void GameplayUIController::createButton()
-        {
-            menu_button = new ButtonView();
-        }
+        void GameplayUIController::createButton() { menu_button = new ButtonView(); }
 
         void GameplayUIController::createTexts()
         {
@@ -52,10 +46,7 @@ namespace UI
 
         void GameplayUIController::initializeButton()
         {
-            menu_button->initialize("Menu Button",
-                Config::menu_button_large_texture_path,
-                button_width, button_height,
-                sf::Vector2f(menu_button_x_position, menu_button_y_position));
+            menu_button->initialize("Menu Button", Config::menu_button_large_texture_path, button_width, button_height, sf::Vector2f(menu_button_x_position, menu_button_y_position));
 
             registerButtonCallback();
         }
@@ -65,13 +56,8 @@ namespace UI
             search_type_text->initialize("Sort Type  :  Bubble Sort", sf::Vector2f(search_type_text_x_position, text_y_position), FontType::BUBBLE_BOBBLE, font_size);
             comparisons_text->initialize("Comparisons  :  0", sf::Vector2f(comparisons_text_x_position, text_y_position), FontType::BUBBLE_BOBBLE, font_size);
             array_access_text->initialize("Array Access  :  0", sf::Vector2f(array_access_text_x_position, text_y_position), FontType::BUBBLE_BOBBLE, font_size);
-
             num_sticks_text->initialize("Number of Sticks  :  0", sf::Vector2f(num_sticks_text_x_position, text_y_pos2), FontType::BUBBLE_BOBBLE, font_size);
-
-
             delay_text->initialize("Delay  :  0 ms", sf::Vector2f(delay_text_x_position, text_y_pos2), FontType::BUBBLE_BOBBLE, font_size);
-
-
             time_complexity_text->initialize("Time Complexity  :  O(n)", sf::Vector2f(time_complexity_text_x_position, text_y_pos2), FontType::BUBBLE_BOBBLE, font_size);
         }
 

@@ -20,27 +20,18 @@ namespace UI
             setPosition(position);
         }
 
-        void ImageView::update()
-        {
-            UIView::update();
-        }
+        void ImageView::update() { UIView::update(); }
 
         void ImageView::render()
         {
             UIView::render();
 
-            if (ui_state == UIState::VISIBLE)
-            {
-                game_window->draw(image_sprite);
-            }
+            if (ui_state == UIState::VISIBLE) { game_window->draw(image_sprite); }
         }
 
         void ImageView::setTexture(sf::String texture_path)
         {
-            if (image_texture.loadFromFile(texture_path))
-            {
-                image_sprite.setTexture(image_texture);
-            }
+            if (image_texture.loadFromFile(texture_path)) { image_sprite.setTexture(image_texture); }
         }
 
         void ImageView::setScale(float width, float height)
@@ -53,15 +44,9 @@ namespace UI
             image_sprite.setScale(scale_x, scale_y);
         }
 
-        void ImageView::setPosition(sf::Vector2f position)
-        {
-            image_sprite.setPosition(getPositionForCurrentResolution(position));
-        }
+        void ImageView::setPosition(sf::Vector2f position) { image_sprite.setPosition(getPositionForCurrentResolution(position)); }
 
-        void ImageView::setRotation(float rotation_angle)
-        {
-            image_sprite.setRotation(rotation_angle);
-        }
+        void ImageView::setRotation(float rotation_angle) { image_sprite.setRotation(rotation_angle); }
 
         void ImageView::setOriginAtCentre()
         {

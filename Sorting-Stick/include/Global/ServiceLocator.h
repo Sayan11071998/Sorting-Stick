@@ -34,6 +34,5 @@ namespace Global
         Sound::SoundService* getSoundService();
         UI::UIService* getUIService();
         Gameplay::GameplayService* getGameplayService();
-        
     };
 }

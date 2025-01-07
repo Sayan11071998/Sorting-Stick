@@ -13,6 +13,7 @@ namespace Gameplay
 		using namespace UI::UIElement;
 		using namespace Global;
 		using namespace Graphics;
+		using namespace Sound;
 
 		StickCollectionController::StickCollectionController()
 		{
@@ -22,13 +23,11 @@ namespace Gameplay
 			for (int i = 0; i < collection_model->number_of_elements; i++) sticks.push_back(new Stick(i));
 		}
 
-		StickCollectionController::~StickCollectionController()
-		{
-			destroy();
-		}
+		StickCollectionController::~StickCollectionController() { destroy(); }
 
 		void StickCollectionController::initialize()
 		{
+			sort_state = SortState::NOT_SORTING;
 			collection_view->initialize(this);
 			initializeSticks();
 			reset();
@@ -38,13 +37,10 @@ namespace Gameplay
 		{
 			float rectangle_width = calculateStickWidth();
 
-
 			for (int i = 0; i < collection_model->number_of_elements; i++)
 			{
-				float rectangle_height = calculateStickHeight(i); //calc height
-
+				float rectangle_height = calculateStickHeight(i);
 				sf::Vector2f rectangle_size = sf::Vector2f(rectangle_width, rectangle_height);
-
 				sticks[i]->stick_view->initialize(rectangle_size, sf::Vector2f(0, 0), 0, collection_model->element_color);
 			}
 		}
@@ -65,18 +61,10 @@ namespace Gameplay
 		float StickCollectionController::calculateStickWidth()
 		{
 			float total_space = static_cast<float>(ServiceLocator::getInstance()->getGraphicService()->getGameWindow()->getSize().x);
-
-			// Calculate total spacing as 10% of the total space
 			float total_spacing = collection_model->space_percentage * total_space;
-
-			// Calculate the space between each stick
 			float space_between = total_spacing / (collection_model->number_of_elements - 1);
 			collection_model->setElementSpacing(space_between);
-
-			// Calculate the remaining space for the rectangles
 			float remaining_space = total_space - total_spacing;
-
-			// Calculate the width of each rectangle
 			float rectangle_width = remaining_space / collection_model->number_of_elements;
 
 			return rectangle_width;
@@ -107,16 +95,82 @@ namespace Gameplay
 			updateStickPosition();
 		}
 
-		bool StickCollectionController::compareSticksByData(const Stick* a, const Stick* b) const
-		{
-			return a->data < b->data;
-		}
+		bool StickCollectionController::compareSticksByData(const Stick* a, const Stick* b) const { return a->data < b->data; }
 
 		void StickCollectionController::processSortThreadState()
 		{
-			if (sort_thread.joinable() && isCollectionSorted()) sort_thread.join();
+			if (sort_thread.joinable() && isCollectionSorted())
+			{
+				sort_thread.join();
+				sort_state = SortState::NOT_SORTING;
+			}
 		}
 
+		void StickCollectionController::processBubbleSort()
+		{
+			SoundService* sound = Global::ServiceLocator::getInstance()->getSoundService();
+
+			for (int j = 0; j < sticks.size(); j++)
+			{
+				if (sort_state == SortState::NOT_SORTING) break;
+				bool swapped = false;
+
+				for (int i = 1; i < sticks.size() - j; i++)
+				{
+
+					if (sort_state == SortState::NOT_SORTING) break;
+
+					number_of_array_access += 2;
+					number_of_comparisons++;
+					sound->playSound(SoundType::COMPARE_SFX);
+
+					sticks[i - 1]->stick_view->setFillColor(collection_model->processing_element_color);
+					sticks[i]->stick_view->setFillColor(collection_model->processing_element_color);
+
+					if (sticks[i - 1]->data > sticks[i]->data)
+					{
+						std::swap(sticks[i - 1], sticks[i]);
+						swapped = true;
+					}
+					std::this_thread::sleep_for(std::chrono::milliseconds(current_operation_delay));
+
+					sticks[i - 1]->stick_view->setFillColor(collection_model->element_color);
+					sticks[i]->stick_view->setFillColor(collection_model->element_color);
+					updateStickPosition();
+				}
+				if (sticks.size() - j - 1 >= 0)
+				{
+					sticks[sticks.size() - j - 1]->stick_view->setFillColor(collection_model->placement_position_element_color);
+				}
+				if (!swapped) break;
+			}
+
+			setCompletedColor();
+		}
+
+		void StickCollectionController::setCompletedColor()
+		{
+
+			for (int k = 0; k < sticks.size(); k++)
+			{
+				if (sort_state == SortState::NOT_SORTING) break;
+
+				sticks[k]->stick_view->setFillColor(collection_model->element_color);
+			}
+
+			SoundService* sound = Global::ServiceLocator::getInstance()->getSoundService();
+
+			for (int i = 0; i < sticks.size(); ++i)
+			{
+				if (sort_state == SortState::NOT_SORTING) break;
+
+				sound->playSound(SoundType::COMPARE_SFX);
+				sticks[i]->stick_view->setFillColor(collection_model->placement_position_element_color);
+				std::this_thread::sleep_for(std::chrono::milliseconds(color_delay));
+			}
+
+			if (sort_state == SortState::SORTING) { sound->playSound(SoundType::SCREAM); }
+		}
 
 		void StickCollectionController::resetSticksColor()
 		{
@@ -131,8 +185,11 @@ namespace Gameplay
 
 		void StickCollectionController::reset()
 		{
+			color_delay = 0;
 			current_operation_delay = 0;
-			if (sort_thread.joinable()) sort_thread.join();
+			sort_state = SortState::NOT_SORTING;
+
+			if (sort_thread.joinable()) { sort_thread.join(); }
 
 			shuffleSticks();
 			resetSticksColor();
@@ -142,14 +199,16 @@ namespace Gameplay
 		void StickCollectionController::sortElements(SortType sort_type)
 		{
 			current_operation_delay = collection_model->operation_delay;
+			color_delay = collection_model->initial_color_delay;
 			this->sort_type = sort_type;
+			sort_state = SortState::SORTING;
 
-			/*switch (sort_type)
+			switch (sort_type)
 			{
 			case Gameplay::Collection::SortType::BUBBLE_SORT:
 				sort_thread = std::thread(&StickCollectionController::processBubbleSort, this);
 				break;
-			}*/
+			}
 		}
 
 		bool StickCollectionController::isCollectionSorted()

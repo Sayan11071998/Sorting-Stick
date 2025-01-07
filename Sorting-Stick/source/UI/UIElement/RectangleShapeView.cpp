@@ -19,19 +19,13 @@ namespace UI
 			setOutlineColor(outline_color);
 		}
 
-		void RectangleShapeView::update()
-		{
-			UIView::update();
-		}
+		void RectangleShapeView::update() { UIView::update(); }
 
 		void RectangleShapeView::render()
 		{
 			UIView::render();
 
-			if (ui_state == UIState::VISIBLE)
-			{
-				game_window->draw(rectangle_shape);
-			}
+			if (ui_state == UIState::VISIBLE) { game_window->draw(rectangle_shape); }
 		}
 
 		void RectangleShapeView::setSize(sf::Vector2f rectangle_size)
@@ -46,24 +40,12 @@ namespace UI
 			rectangle_shape.setPosition(getPositionForCurrentResolution(rectangle_position));
 		}
 
-		void RectangleShapeView::setFillColor(sf::Color fill_color)
-		{
-			rectangle_shape.setFillColor(fill_color);
-		}
+		void RectangleShapeView::setFillColor(sf::Color fill_color) { rectangle_shape.setFillColor(fill_color); }
 
-		void RectangleShapeView::setOutlineColor(sf::Color outline_color)
-		{
-			rectangle_shape.setOutlineColor(outline_color);
-		}
+		void RectangleShapeView::setOutlineColor(sf::Color outline_color) { rectangle_shape.setOutlineColor(outline_color); }
 
-		void RectangleShapeView::setOutlineThickness(int outline_thickness)
-		{
-			rectangle_shape.setOutlineThickness(outline_thickness);
-		}
+		void RectangleShapeView::setOutlineThickness(int outline_thickness) { rectangle_shape.setOutlineThickness(outline_thickness); }
 
-		sf::Vector2f RectangleShapeView::getSize()
-		{
-			return rectangle_shape.getSize();
-		}
+		sf::Vector2f RectangleShapeView::getSize() { return rectangle_shape.getSize(); }
 	}
 }
