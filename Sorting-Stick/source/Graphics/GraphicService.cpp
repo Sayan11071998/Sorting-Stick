@@ -2,15 +2,9 @@
 
 namespace Graphics
 {
-	GraphicService::GraphicService()
-	{
-		game_window = nullptr;
-	}
+	GraphicService::GraphicService() { game_window = nullptr; }
 
-	GraphicService::~GraphicService()
-	{
-		onDestroy();
-	}
+	GraphicService::~GraphicService() { onDestroy(); }
 
 	void GraphicService::initialize()
 	{
@@ -35,32 +29,17 @@ namespace Graphics
 		reference_resolution = sf::Vector2f(game_window_width, game_window_height);
 	}
 
-	sf::Vector2f GraphicService::getReferenceResolution()
-	{
-		return reference_resolution;
-	}
+	sf::Vector2f GraphicService::getReferenceResolution() { return reference_resolution; }
 
-	void GraphicService::onDestroy()
-	{
-		delete(game_window);
-	}
+	void GraphicService::onDestroy() { delete(game_window); }
 
-	void GraphicService::setFrameRate(int frame_rate_to_set)
-	{
-		game_window->setFramerateLimit(frame_rate_to_set);
-	}
+	void GraphicService::setFrameRate(int frame_rate_to_set) { game_window->setFramerateLimit(frame_rate_to_set); }
 
-	void GraphicService::update() { }
+	void GraphicService::update() {}
 
-	void GraphicService::render() { }
+	void GraphicService::render() {}
 
-	bool GraphicService::isGameWindowOpen()
-	{
-		return game_window->isOpen();
-	}
+	bool GraphicService::isGameWindowOpen() { return game_window->isOpen(); }
 
-	sf::RenderWindow* GraphicService::getGameWindow()
-	{
-		return game_window;
-	}
+	sf::RenderWindow* GraphicService::getGameWindow() { return game_window; }
 }

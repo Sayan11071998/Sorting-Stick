@@ -9,10 +9,8 @@ namespace UI
 		class ButtonView : public ImageView
 		{
 		private:
-			// Define a function pointer type for the callback function
 			using CallbackFunction = std::function<void()>;
 
-			// Store the callback function
 			CallbackFunction callback_function = nullptr;
 
 			void printButtonClicked();

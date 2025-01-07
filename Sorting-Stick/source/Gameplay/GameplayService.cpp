@@ -20,7 +20,7 @@ namespace Gameplay
 
 	void GameplayService::initialize()
 	{
-		std::srand(static_cast<unsigned int>(std::time(nullptr))); //set seed
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
 		gameplay_controller->initialize();
 		collection_controller->initialize();
 	}
@@ -43,38 +43,17 @@ namespace Gameplay
 		collection_controller->reset();
 	}
 
-	void GameplayService::sortElement(Collection::SortType sort_type)
-	{
-		collection_controller->sortElements(sort_type);
-	}
+	void GameplayService::sortElement(Collection::SortType sort_type) { collection_controller->sortElements(sort_type); }
 
-	Collection::SortType GameplayService::getSortType()
-	{
-		return collection_controller->getSortType();
-	}
+	Collection::SortType GameplayService::getSortType() { return collection_controller->getSortType(); }
 
-	int GameplayService::getNumberOfComparisons()
-	{
-		return collection_controller->getNumberOfComparisons();
-	}
+	int GameplayService::getNumberOfComparisons() { return collection_controller->getNumberOfComparisons(); }
 
-	int GameplayService::getNumberOfArrayAccess()
-	{
-		return collection_controller->getNumberOfArrayAccess();
-	}
+	int GameplayService::getNumberOfArrayAccess() { return collection_controller->getNumberOfArrayAccess(); }
 
-	int GameplayService::getNumberOfSticks()
-	{
-		return collection_controller->getNumberOfSticks();
-	}
+	int GameplayService::getNumberOfSticks() { return collection_controller->getNumberOfSticks(); }
 
-	int GameplayService::getDelayMilliseconds()
-	{
-		return collection_controller->getDelayMilliseconds();
-	}
+	int GameplayService::getDelayMilliseconds() { return collection_controller->getDelayMilliseconds(); }
 
-	sf::String GameplayService::getTimeComplexity()
-	{
-		return collection_controller->getTimeComplexity();
-	}
+	sf::String GameplayService::getTimeComplexity() { return collection_controller->getTimeComplexity(); }
 }

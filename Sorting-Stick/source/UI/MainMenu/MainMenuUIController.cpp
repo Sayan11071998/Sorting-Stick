@@ -5,6 +5,7 @@
 #include "Event/EventService.h"
 #include "Global/Config.h"
 #include "Global/ServiceLocator.h"
+#include "Gameplay/Collection/StickCollectionModel.h"
 
 namespace UI
 {
@@ -22,10 +23,7 @@ namespace UI
             createButtons();
         }
 
-        MainMenuUIController::~MainMenuUIController()
-        {
-            destroy();
-        }
+        MainMenuUIController::~MainMenuUIController() { destroy(); }
 
         void MainMenuUIController::initialize()
         {
@@ -34,10 +32,7 @@ namespace UI
             registerButtonCallback();
         }
 
-        void MainMenuUIController::createImage()
-        {
-            background_image = new ImageView();
-        }
+        void MainMenuUIController::createImage() { background_image = new ImageView(); }
 
         void MainMenuUIController::createButtons()
         {
@@ -73,7 +68,7 @@ namespace UI
 
         void MainMenuUIController::registerButtonCallback()
         {
-            //bubble_sort_button->registerCallbackFuntion(std::bind(&MainMenuUIController::bubbleSortButtonCallback, this));
+            bubble_sort_button->registerCallbackFuntion(std::bind(&MainMenuUIController::bubbleSortButtonCallback, this));
             //insertion_sort_button->registerCallbackFuntion(std::bind(&MainMenuUIController::insertionSortButtonCallback, this));
             //selection_sort_button->registerCallbackFuntion(std::bind(&MainMenuUIController::selectionSortButtonCallback, this));
             //merge_sort_button->registerCallbackFuntion(std::bind(&MainMenuUIController::mergeSortButtonCallback, this));
@@ -84,37 +79,49 @@ namespace UI
 
         void MainMenuUIController::bubbleSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::BUBBLE_SORT);
         }
 
         void MainMenuUIController::insertionSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::INSERTION_SORT);
         }
 
         void MainMenuUIController::selectionSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::SELECTION_SORT);
         }
 
         void MainMenuUIController::mergeSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::MERGE_SORT);
         }
 
         void MainMenuUIController::quickSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::QUICK_SORT);
         }
 
         void MainMenuUIController::radixSortButtonCallback()
         {
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            changeGameStateToGameplay();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::RADIX_SORT);
         }
 
         void MainMenuUIController::quitButtonCallback()
         {
             ServiceLocator::getInstance()->getGraphicService()->getGameWindow()->close();
+        }
+
+        void MainMenuUIController::changeGameStateToGameplay()
+        {
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            GameService::setGameState(GameState::GAMEPLAY);
         }
 
         void MainMenuUIController::update()

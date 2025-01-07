@@ -11,12 +11,9 @@ namespace UI
 		class MainMenuUIController : public Interface::IUIController
 		{
 		private:
-
-			// Button Dimensions:
 			const float button_width = 360.f;
 			const float button_height = 120.f;
 
-			// Button Offsets:
 			const float first_column_button_x_position = 420.f;
 			const float second_column_button_x_position = 1140.f;
 
@@ -28,7 +25,6 @@ namespace UI
 			const float radix_sort_button_y_position = 600.f;
 			const float quit_button_y_position = 830.f;
 
-			// References:
 			UIElement::ImageView* background_image;
 			UIElement::ButtonView* bubble_sort_button;
 			UIElement::ButtonView* insertion_sort_button;
@@ -54,6 +50,7 @@ namespace UI
 			void radixSortButtonCallback();
 			void quitButtonCallback();
 
+			void changeGameStateToGameplay();
 			void destroy();
 
 		public:

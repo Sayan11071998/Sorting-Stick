@@ -10,7 +10,7 @@ namespace Gameplay
             int data;
             UI::UIElement::RectangleShapeView* stick_view;
 
-            Stick() { }
+            Stick() {}
 
             Stick(int data)
             {

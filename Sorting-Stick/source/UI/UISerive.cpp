@@ -27,10 +27,7 @@ namespace UI
 		gameplay_controller = new GameplayUIController();
 	}
 
-	UIService::~UIService()
-	{
-		destroy();
-	}
+	UIService::~UIService() { destroy(); }
 
 	void UIService::initialize()
 	{
