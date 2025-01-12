@@ -241,6 +241,57 @@ namespace Gameplay
 			merge(left, mid, right);
 		}
 
+		int StickCollectionController::partition(int left, int right)
+		{
+			sticks[right]->stick_view->setFillColor(collection_model->selected_element_color);
+			int i = left - 1;
+			SoundService* sound = Global::ServiceLocator::getInstance()->getSoundService();
+
+			for (int j = left; j < right; ++j)
+			{
+
+				sticks[j]->stick_view->setFillColor(collection_model->processing_element_color);
+				number_of_array_access += 2;
+				number_of_comparisons++;
+
+				if (sticks[j]->data < sticks[right]->data)
+				{
+					++i;
+					std::swap(sticks[i], sticks[j]);
+					number_of_array_access += 3;
+					sound->playSound(SoundType::COMPARE_SFX);
+
+
+					updateStickPosition();
+					std::this_thread::sleep_for(std::chrono::milliseconds(current_operation_delay));
+				}
+
+				sticks[j]->stick_view->setFillColor(collection_model->element_color);
+			}
+
+			std::swap(sticks[i + 1], sticks[right]);
+			number_of_array_access += 3;
+
+			updateStickPosition();
+			return i + 1;
+		}
+
+		void StickCollectionController::quickSort(int left, int right)
+		{
+			if (left < right)
+			{
+				int pivot_index = partition(left, right);
+
+				quickSort(left, pivot_index - 1);
+				quickSort(pivot_index + 1, right);
+
+				for (int i = left; i <= right; i++) {
+					sticks[i]->stick_view->setFillColor(collection_model->placement_position_element_color);
+					updateStickPosition();
+				}
+			}
+		}
+
 		void StickCollectionController::processBubbleSort()
 		{
 			SoundService* sound = Global::ServiceLocator::getInstance()->getSoundService();
@@ -377,6 +428,12 @@ namespace Gameplay
 			setCompletedColor();
 		}
 
+		void StickCollectionController::processQuickSort()
+		{
+			quickSort(0, sticks.size() - 1);
+			setCompletedColor();
+		}
+
 		void StickCollectionController::setCompletedColor()
 		{
 
@@ -450,6 +507,11 @@ namespace Gameplay
 				time_complexity = "O(n Log n)";
 				sort_thread = std::thread(&StickCollectionController::processMergeSort, this);
 				break;
+			case Gameplay::Collection::SortType::QUICK_SORT:
+				time_complexity = "O(n Log n)";
+				sort_thread = std::thread(&StickCollectionController::processQuickSort, this);
+				break;
+
 			}
 		}
 
