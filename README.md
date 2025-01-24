@@ -20,3 +20,16 @@
 💬 Let’s Connect!
 Are you passionate about game development, C++ programming, or just geeking out over algorithms? Let’s chat! I’d love to hear your feedback, ideas, or your first algorithm story. 🌟
 
+![Image](https://github.com/user-attachments/assets/8a5f1bb1-ed56-41da-b35f-9c73ef10e496)
+
+![Image](https://github.com/user-attachments/assets/33013199-b0a7-448b-8c85-4620e75721b0)
+
+![Image](https://github.com/user-attachments/assets/166193ba-b272-475a-adc9-05ae7baceb98)
+
+![Image](https://github.com/user-attachments/assets/e80b77ad-8beb-4788-bd5e-a5d7606cb056)
+
+![Image](https://github.com/user-attachments/assets/6b584325-b6c9-4d14-9c1a-f7924734cd5d)
+
+![Image](https://github.com/user-attachments/assets/8880d97f-ae03-4d77-b757-92b23720479e)
+
+![Image](https://github.com/user-attachments/assets/91a07c9c-a56f-465c-9c53-4558ff79cb3b)
