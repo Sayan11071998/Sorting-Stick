@@ -45,6 +45,9 @@ Super excited to share my latest project: **Sorting Sticks**! Built with **C++**
 
 Are you passionate about game development, C++ programming, or just geeking out over algorithms? Let’s chat! I’d love to hear your feedback, ideas, or your first algorithm story.
 
+[![Watch the video](https://img.youtube.com/vi/NOqg0whZDqg/maxresdefault.jpg)](https://youtu.be/NOqg0whZDqg)
+### [Gameplay Video](https://youtu.be/NOqg0whZDqg)
+
 
 ![Image](https://github.com/user-attachments/assets/8a5f1bb1-ed56-41da-b35f-9c73ef10e496)
 
